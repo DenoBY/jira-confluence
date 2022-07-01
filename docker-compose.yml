@@ -11,6 +11,8 @@ services:
       - ./data/atlassian/jira:/var/atlassian/application-data/jira
     ports:
       - '7000:8080'
+    expose:
+      - '8080'
 
   confluence:
       container_name: confluence
@@ -24,7 +26,10 @@ services:
       ports:
         - '7005:8090'
         - '7006:8091'
-        
+      expose:
+        - '8090'
+        - '8091'
+
   postgresql:
     container_name: postgres
     build: postgres
