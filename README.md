@@ -1,6 +1,6 @@
 # Jira + Confluence Docker Compose
 
-Агент [atlassian-agent.jar](https://gitee.com/pengzhile/atlassian-agent/releases) нужно нужно положить в корневой каталог.
+Agent [atlassian-agent.jar](https://gitee.com/pengzhile/atlassian-agent/releases) need to put the in root catalog.
 
 ## install
 ```
