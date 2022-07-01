@@ -1,0 +1,38 @@
+version: '3.3'
+
+services:
+  jira:
+    container_name: jira
+    depends_on:
+      - postgresql
+    build: jira
+    volumes:
+      - ./atlassian-agent.jar:/opt/atlassian/jira/atlassian-agent.jar
+      - ./data/atlassian/jira:/var/atlassian/application-data/jira
+    ports:
+      - '7000:8080'
+
+  confluence:
+      container_name: confluence
+      depends_on:
+        - postgresql
+      image: atlassian/confluence:7.13
+      volumes:
+        - ./atlassian-agent.jar:/opt/atlassian/confluence/atlassian-agent.jar
+        - ./confluence/setenv.sh:/opt/atlassian/confluence/bin/setenv.sh
+        - ./data/atlassian/confluence:/var/atlassian/application-data/confluence
+      ports:
+        - '7005:8090'
+        - '7006:8091'
+        
+  postgresql:
+    container_name: postgres
+    build: postgres
+    expose:
+      - '5432'
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=atlassian
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_MULTIPLE_DATABASES=jira,confluence
